@@ -17,10 +17,8 @@ namespace gamebase { namespace sdl
                     windowWidth(windowWidth),
                     windowHeight(windowHeight)
     {
-        // backgroundColor.r = backgroundColor.g = backgroundColor.b = 0x00;
-        // backgroundColor.a = 0x0;
-        backgroundColor.r = 0xFF;
-        backgroundColor.g = backgroundColor.b = backgroundColor.a = 0x00;
+        backgroundColor.r = backgroundColor.g = backgroundColor.b = 0x00;
+        backgroundColor.a = 0x0;
     }
 
     bool SdlGame::Initialize()
@@ -55,9 +53,6 @@ namespace gamebase { namespace sdl
             return false;
         }
 
-        //Initialize renderer color (rgba) to background color
-        SDL_SetRenderDrawColor(renderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
-
         return true;
     }
 
@@ -90,7 +85,14 @@ namespace gamebase { namespace sdl
         }
     }
 
-    void SdlGame::Draw() { }
+    void SdlGame::Draw() 
+    { 
+        // Clear the screen with the background color
+        SDL_SetRenderDrawColor(renderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
+        SDL_RenderClear(renderer);
+
+        SDL_RenderPresent(renderer);
+    }
     void SdlGame::Load() { }
     void SdlGame::Unload() { }
 }}
