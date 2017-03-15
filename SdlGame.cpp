@@ -4,14 +4,23 @@
 
 namespace gamebase { namespace sdl 
 {
-    SdlGame::SdlGame() : Gamebase(SdlTimer::Create()),
+    SdlGame::SdlGame() : SdlGame("Gamebase SDL", 640, 480)
+    {
+        
+    }
+
+    SdlGame::SdlGame(std::string title, unsigned int windowWidth, unsigned int windowHeight)
+             : Gamebase(SdlTimer::Create()),
                     window(NULL),
                     renderer(NULL),
                     title("Hey there!"),
-                    windowWidth(640),
-                    windowHeight(480)
+                    windowWidth(windowWidth),
+                    windowHeight(windowHeight)
     {
-        backgroundColor.r = backgroundColor.g = backgroundColor.b = backgroundColor.a = 0xFF;
+        // backgroundColor.r = backgroundColor.g = backgroundColor.b = 0x00;
+        // backgroundColor.a = 0x0;
+        backgroundColor.r = 0xFF;
+        backgroundColor.g = backgroundColor.b = backgroundColor.a = 0x00;
     }
 
     bool SdlGame::Initialize()

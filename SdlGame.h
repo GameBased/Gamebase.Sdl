@@ -27,6 +27,7 @@ namespace gamebase { namespace sdl
         public:
 
             SdlGame();
+            SdlGame(std::string title, unsigned int windowWidth, unsigned int WindowHeight);
 
             virtual bool Initialize();
             virtual void Uninitialize();
