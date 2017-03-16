@@ -1,6 +1,7 @@
 #include "SdlGame.h"
 
 #include "utils/SdlTimer.h"
+#include "utils/SdlGraphicsDevice.h"
 
 namespace gamebase { namespace sdl 
 {
@@ -38,7 +39,10 @@ namespace gamebase { namespace sdl
 
         //Create the window
         int flags = SDL_WINDOW_SHOWN;
-        window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, windowWidth, windowHeight, flags);
+        window = SDL_CreateWindow(title.c_str(), 
+                    SDL_WINDOWPOS_UNDEFINED, 
+                    SDL_WINDOWPOS_UNDEFINED, 
+                    windowWidth, windowHeight, flags);
         if (window == NULL)
         {
             printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
@@ -52,6 +56,9 @@ namespace gamebase { namespace sdl
             printf("Renderer could not be created! SDL Error: %s\n", SDL_GetError());
             return false;
         }
+
+        std::unique_ptr<IGraphicsDevice> device(new SdlGraphicsDevice (renderer, backgroundColor));
+        this->registerGraphicsDevice(std::move(device));
 
         return true;
     }
@@ -87,11 +94,7 @@ namespace gamebase { namespace sdl
 
     void SdlGame::Draw() 
     { 
-        // Clear the screen with the background color
-        SDL_SetRenderDrawColor(renderer, backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
-        SDL_RenderClear(renderer);
 
-        SDL_RenderPresent(renderer);
     }
     void SdlGame::Load() { }
     void SdlGame::Unload() { }
